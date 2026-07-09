@@ -1,0 +1,14 @@
+baseURL = "https://raynorpat.com/"
+languageCode = "en-us"
+title = "Patrick Raynor"
+
+[params]
+  author = "Patrick Raynor"
+  description = "Patrick Raynor's personal site and blog"
+
+[pagination]
+  pagerSize = 10
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
