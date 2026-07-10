@@ -1,6 +1,7 @@
 baseURL = "https://raynorpat.com/"
-languageCode = "en-us"
+locale = "en-US"
 title = "Patrick Raynor"
+disableKinds = ["taxonomy", "term"]
 
 [params]
   author = "Patrick Raynor"
