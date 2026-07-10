@@ -162,12 +162,19 @@ h2 {
 .hero__tagline {
   font-size: var(--font-size-subheading);
   font-weight: var(--font-weight-body);
-  margin: 0 0 var(--space-6);
+  margin: 0 0 var(--space-3);
+}
+
+.hero__latest,
+.hero__email {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-2);
 }
 
 .hero__actions {
   display: flex;
   gap: var(--space-4);
+  margin-top: var(--space-6);
 }
 
 .hero__button {

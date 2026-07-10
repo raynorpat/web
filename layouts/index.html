@@ -3,6 +3,11 @@
   <img class="hero__photo" src="https://avatars3.githubusercontent.com/u/17457?s=460&v=4" alt="Photo of Patrick Raynor">
   <div class="hero__body">
     <p class="hero__tagline">raynorpat.com is dedicated to the archival and constant uploading of crazy projects and of course, the ramblings, howto's, reports, and other writings of Pat 'raynorpat' Raynor.</p>
+    {{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+    {{ with index $posts 0 }}
+    <p class="hero__latest">Most recently I published <a href="{{ .RelPermalink }}">{{ .Title }}</a> ({{ .Date.Format "January 2, 2006" }}).</p>
+    {{ end }}
+    <p class="hero__email">Shoot an email to raynorpat@#{thisdomain} and say hello.</p>
     <div class="hero__actions">
       <a class="hero__button" href="/posts/">Articles &rarr;</a>
       <a class="hero__button" href="/projects/">Projects &rarr;</a>
