@@ -1,3 +1,19 @@
 {{ define "main" }}
-<p>Site scaffold OK</p>
+<h1>{{ .Site.Title }}</h1>
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{ $paginator := .Paginate $posts }}
+{{ if $paginator.Pages }}
+<ul class="post-list">
+  {{ range $paginator.Pages }}
+  <li>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+    {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
+  </li>
+  {{ end }}
+</ul>
+{{ template "_internal/pagination.html" . }}
+{{ else }}
+<p>No posts yet &mdash; check back soon.</p>
+{{ end }}
 {{ end }}
