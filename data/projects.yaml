@@ -4,3 +4,8 @@ items:
       - /images/projects/micront-4.png
     description: "A fork of HarryR's nt365, but built on Windows NT 4 instead of NT 3.5 — with additional custom drivers, a new HAL, and a bit of a modernizing push. Good hands-on experience with operating system design and implementation."
     link: https://github.com/raynorpat/micront
+  - name: "The Cycle of Fates"
+    images:
+      - /images/projects/cycle-of-fates.png
+    description: "A complete Isekai-inspired fictional novel, in the style of Japanese light novels. Available as part of a subscription on Patreon, or as a direct purchase of the volume itself and/or the audiobook — with planned weekly chapter releases."
+    link: https://www.patreon.com/c/raynorpat
