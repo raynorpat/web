@@ -211,9 +211,21 @@ h2 {
   margin: var(--space-3) 0 0;
 }
 
-.card__tagline {
-  margin: var(--space-2) 0 0;
+.card__role {
+  margin: var(--space-3) 0 0;
+  font-weight: var(--font-weight-subheading);
+}
+
+.card__location {
+  margin: var(--space-1) 0 0;
   color: var(--color-text-2);
+  font-size: var(--font-size-label);
+}
+
+.card__tagline {
+  margin: var(--space-4) 0 0;
+  color: var(--color-text-2);
+  font-size: var(--font-size-label);
 }
 
 .card__links {

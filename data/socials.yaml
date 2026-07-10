@@ -1,15 +1,22 @@
 items:
   - name: Twitter
     href: https://twitter.com/raynorpat
+    emoji: "🐦"
   - name: Facebook
     href: https://facebook.com/raynorpat
+    emoji: "📘"
   - name: Instagram
     href: https://instagram.com/raynorpat
+    emoji: "📸"
   - name: GitHub
     href: https://github.com/raynorpat
+    emoji: "🐙"
   - name: LinkedIn
     href: https://www.linkedin.com/in/raynorpat
+    emoji: "💼"
   - name: Flickr
     href: https://www.flickr.com/photos/136097076@N05
+    emoji: "📷"
   - name: Email
     href: mailto:raynorpat@raynorpat.com
+    emoji: "✉️"

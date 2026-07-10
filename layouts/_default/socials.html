@@ -4,10 +4,12 @@
   <img class="card__avatar" src="https://avatars3.githubusercontent.com/u/17457?s=460&v=4" alt="Photo of Patrick Raynor">
   <div class="card__body">
     <h1 class="card__name">{{ .Site.Params.author }}</h1>
+    {{ with .Params.role }}<p class="card__role">{{ . }}</p>{{ end }}
+    {{ with .Params.location }}<p class="card__location">{{ . }}</p>{{ end }}
     <p class="card__tagline">{{ .Description }}</p>
     <ul class="card__links">
       {{ range hugo.Data.socials.items }}
-      <li><a href="{{ .href }}">{{ .name }}</a></li>
+      <li><a href="{{ .href }}">{{ .emoji }} {{ .name }}</a></li>
       {{ end }}
     </ul>
   </div>
