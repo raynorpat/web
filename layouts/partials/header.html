@@ -8,9 +8,4 @@
     <a href="/posts/">Articles</a>
     <a href="/socials/">Socials</a>
   </nav>
-  <ul class="site-header__icons">
-    {{ range hugo.Data.socials.items }}
-    <li><a href="{{ .href }}">{{ .name }}</a></li>
-    {{ end }}
-  </ul>
 </header>
