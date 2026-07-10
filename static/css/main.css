@@ -116,3 +116,15 @@ h2 {
   color: var(--color-text-2);
   font-size: var(--font-size-label);
 }
+
+.post__date {
+  color: var(--color-text-2);
+  font-size: var(--font-size-label);
+}
+
+.post__pager {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-7);
+  font-size: var(--font-size-label);
+}
