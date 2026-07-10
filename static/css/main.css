@@ -117,6 +117,13 @@ h2 {
   font-size: var(--font-size-label);
 }
 
+.site-footer__tagline {
+  color: var(--color-text);
+  font-size: var(--font-size-body);
+  max-width: 480px;
+  margin: 0 0 var(--space-4);
+}
+
 .post__date {
   color: var(--color-text-2);
   font-size: var(--font-size-label);

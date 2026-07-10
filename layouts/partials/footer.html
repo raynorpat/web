@@ -1,3 +1,7 @@
 <footer class="site-footer">
+  <p class="site-footer__tagline">raynorpat.com is dedicated to the archival and constant uploading of crazy projects, unbelievable video and photos, and of course, the ramblings, howto's, reports, and other writings of Pat 'raynorpat' Raynor.</p>
   <p>&copy; {{ now.Format "2006" }} Patrick Raynor</p>
+  {{ $items := hugo.Data.poweredby.items }}
+  {{ $choice := index (shuffle $items) 0 }}
+  <p>Powered by <a href="https://github.com/raynorpat/web">{{ $choice }}</a></p>
 </footer>
