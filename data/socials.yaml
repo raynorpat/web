@@ -17,6 +17,18 @@ items:
   - name: Flickr
     href: https://www.flickr.com/photos/136097076@N05
     emoji: "📷"
+  - name: Mastodon
+    href: https://mastodon.gamedev.place/@raynorpat
+    emoji: "🐘"
+  - name: Bluesky
+    href: https://bsky.app/profile/raynorpat.bsky.social
+    emoji: "🦋"
+  - name: Reddit
+    href: https://www.reddit.com/user/raynorpat/
+    emoji: "👽"
+  - name: Patreon
+    href: https://www.patreon.com/c/raynorpat
+    emoji: "🅿️"
   - name: Email
     href: mailto:raynorpat@raynorpat.com
     emoji: "✉️"
