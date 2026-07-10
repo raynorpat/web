@@ -275,6 +275,7 @@ h2 {
   width: 100%;
   border-radius: var(--radius-control);
   margin-top: var(--space-4);
+  background: #fff;
 }
 
 .project-card__description {
@@ -303,6 +304,7 @@ h2 {
 .project-carousel__slide {
   display: none;
   width: 100%;
+  background: #fff;
 }
 
 .project-carousel__slide.is-active {

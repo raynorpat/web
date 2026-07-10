@@ -9,3 +9,8 @@ items:
       - /images/projects/cycle-of-fates.png
     description: "A complete Isekai-inspired fictional novel, in the style of Japanese light novels. Available as part of a subscription on Patreon, or as a direct purchase of the volume itself and/or the audiobook — with planned weekly chapter releases."
     link: https://www.patreon.com/c/raynorpat
+  - name: "Flaming Entertainment"
+    images:
+      - /images/projects/flaming-entertainment.png
+    description: "My company venture for designing and creating video games. No product as of yet, so keep on looking."
+    link: https://flamingent.com
