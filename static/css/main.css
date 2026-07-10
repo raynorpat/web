@@ -292,9 +292,16 @@ h2 {
 .project-card__link {
   display: inline-block;
   margin-top: var(--space-4);
-  color: var(--color-text);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-info);
+  color: #fff;
   font-weight: var(--font-weight-label);
   text-decoration: none;
+}
+
+.project-card__link:hover {
+  opacity: 0.85;
 }
 
 .project-carousel {
