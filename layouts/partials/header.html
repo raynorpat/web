@@ -5,15 +5,12 @@
   </a>
   <nav class="site-header__nav">
     <a href="/">Home</a>
-    <a href="/posts/">Archive</a>
+    <a href="/posts/">Articles</a>
+    <a href="/socials/">Socials</a>
   </nav>
   <ul class="site-header__icons">
-    <li><a href="https://twitter.com/raynorpat">Twitter</a></li>
-    <li><a href="https://facebook.com/raynorpat">Facebook</a></li>
-    <li><a href="https://www.flickr.com/photos/136097076@N05">Flickr</a></li>
-    <li><a href="https://instagram.com/raynorpat">Instagram</a></li>
-    <li><a href="https://github.com/raynorpat">GitHub</a></li>
-    <li><a href="https://docs.google.com/document/d/1-7Sye63MNtBaw7rI6BS8jeQkrT8gLfCrKhR5L9RIcrM/edit?usp=sharing">Resume</a></li>
-    <li><a href="mailto:raynorpat@raynorpat.com">Email</a></li>
+    {{ range hugo.Data.socials.items }}
+    <li><a href="{{ .href }}">{{ .name }}</a></li>
+    {{ end }}
   </ul>
 </header>

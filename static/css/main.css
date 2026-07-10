@@ -117,13 +117,6 @@ h2 {
   font-size: var(--font-size-label);
 }
 
-.site-footer__tagline {
-  color: var(--color-text);
-  font-size: var(--font-size-body);
-  max-width: 480px;
-  margin: 0 0 var(--space-4);
-}
-
 .post__date {
   color: var(--color-text-2);
   font-size: var(--font-size-label);
@@ -153,18 +146,67 @@ h2 {
   border-bottom: 1px solid var(--color-border);
 }
 
-.post-list {
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+  align-items: center;
+  padding: var(--space-8) 0;
+}
+
+.hero__photo {
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius-card);
+  flex-shrink: 0;
+}
+
+.hero__body {
+  flex: 1;
+  min-width: 240px;
+}
+
+.hero__tagline {
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-body);
+  margin: 0 0 var(--space-6);
+}
+
+.hero__actions {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.hero__button {
+  display: inline-block;
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: var(--font-weight-label);
+}
+
+.socials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-4);
   list-style: none;
-  margin: 0;
+  margin: var(--space-6) 0 0;
   padding: 0;
 }
 
-.post-list li {
-  padding: var(--space-4) 0;
-  border-bottom: 1px solid var(--color-border);
+.socials-grid li {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
 }
 
-.post-list time {
-  color: var(--color-text-2);
-  font-size: var(--font-size-label);
+.socials-grid a {
+  display: block;
+  padding: var(--space-4);
+  text-align: center;
+  font-weight: var(--font-weight-subheading);
+  text-decoration: none;
+  color: var(--color-text);
 }

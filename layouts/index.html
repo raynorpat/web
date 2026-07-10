@@ -1,19 +1,12 @@
 {{ define "main" }}
-<h1>{{ .Site.Title }}</h1>
-{{ $posts := where .Site.RegularPages "Section" "posts" }}
-{{ $paginator := .Paginate $posts }}
-{{ if $paginator.Pages }}
-<ul class="post-list">
-  {{ range $paginator.Pages }}
-  <li>
-    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-    {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
-  </li>
-  {{ end }}
-</ul>
-{{ template "_internal/pagination.html" . }}
-{{ else }}
-<p>No posts yet &mdash; check back soon.</p>
-{{ end }}
+<section class="hero">
+  <img class="hero__photo" src="https://avatars3.githubusercontent.com/u/17457?s=460&v=4" alt="Photo of Patrick Raynor">
+  <div class="hero__body">
+    <p class="hero__tagline">raynorpat.com is dedicated to the archival and constant uploading of crazy projects, unbelievable video and photos, and of course, the ramblings, howto's, reports, and other writings of Pat 'raynorpat' Raynor.</p>
+    <div class="hero__actions">
+      <a class="hero__button" href="/posts/">Articles &rarr;</a>
+      <a class="hero__button" href="/socials/">Socials &rarr;</a>
+    </div>
+  </div>
+</section>
 {{ end }}
