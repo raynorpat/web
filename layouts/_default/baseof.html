@@ -9,5 +9,6 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
+  {{ if eq .Layout "projects" }}<script src="/js/carousel.js"></script>{{ end }}
 </body>
 </html>

@@ -1,0 +1,29 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ range hugo.Data.projects.items }}
+{{ $project := . }}
+<article class="project-card">
+  <span class="project-card__pill">{{ .name }}</span>
+  {{ if gt (len .images) 1 }}
+  <div class="project-carousel" data-carousel>
+    <div class="project-carousel__track">
+      {{ range $i, $img := .images }}
+      <img class="project-carousel__slide{{ if eq $i 0 }} is-active{{ end }}" src="{{ $img }}" alt="{{ $project.name }} screenshot {{ add $i 1 }}">
+      {{ end }}
+    </div>
+    <button class="project-carousel__prev" type="button" aria-label="Previous image">&larr;</button>
+    <button class="project-carousel__next" type="button" aria-label="Next image">&rarr;</button>
+    <div class="project-carousel__dots">
+      {{ range $i, $img := .images }}
+      <button class="project-carousel__dot{{ if eq $i 0 }} is-active{{ end }}" type="button" aria-label="Image {{ add $i 1 }}"></button>
+      {{ end }}
+    </div>
+  </div>
+  {{ else if .images }}
+  <img class="project-card__photo" src="{{ index .images 0 }}" alt="{{ .name }} screenshot">
+  {{ end }}
+  <p class="project-card__description">{{ .description }}</p>
+  <a class="project-card__link" href="{{ .link }}">View project &rarr;</a>
+</article>
+{{ end }}
+{{ end }}
