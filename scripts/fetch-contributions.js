@@ -19,10 +19,11 @@ const oneYearAgo = new Date(now);
 oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 oneYearAgo.setDate(oneYearAgo.getDate() - 1);
 
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const toISO = (d) => d.toISOString().slice(0, 10);
 
 const ghQuery = `{
-  "query": "query { viewer { contributionsCollection(from: \\"${toISO(oneYearAgo)}T00:00:00Z\\", to: \\"${toISO(now)}T23:59:59Z\\") { contributionCalendar { months { name firstWeek } weeks { firstDay contributionDays { date contributionCount } } } } } }"
+  "query": "query { viewer { contributionsCollection(from: \\"${toISO(oneYearAgo)}T00:00:00Z\\", to: \\"${toISO(now)}T23:59:59Z\\") { contributionCalendar { weeks { firstDay contributionDays { date contributionCount } } } } } }"
 }`;
 
 async function fetchGitHub() {
@@ -41,8 +42,7 @@ async function fetchGitHub() {
       byDate[day.date] = (byDate[day.date] || 0) + day.contributionCount;
     }
   }
-  const months = cal.months.map((m) => ({ name: m.name, week: m.firstWeek }));
-  return { byDate, months };
+  return byDate;
 }
 
 async function fetchGitea() {
@@ -62,45 +62,55 @@ async function fetchGitea() {
 function buildGrid(merged) {
   const start = new Date(oneYearAgo);
   const end = new Date(now);
-  const weeks = [];
+  const days = [];
   let max = 0;
 
+  // Start from the Monday of the week containing start
   const current = new Date(start);
+  const dayOfWeek = (current.getDay() + 6) % 7;
+  current.setDate(current.getDate() - dayOfWeek);
+
+  const months = [];
+  let lastMonth = -1;
+
   while (current <= end) {
     const date = toISO(current);
     const count = merged[date] || 0;
     if (count > max) max = count;
-    weeks.push(count);
+    days.push(count);
+
+    const m = current.getMonth();
+    const weekIdx = Math.floor((days.length - 1) / 7);
+    if (m !== lastMonth) {
+      months.push({ name: MONTHS[m], week: weekIdx });
+      lastMonth = m;
+    }
+
     current.setDate(current.getDate() + 1);
   }
 
-  const firstDay = new Date(start);
-  const padFront = (firstDay.getDay() + 6) % 7;
-  for (let i = 0; i < padFront; i++) weeks.unshift(0);
-
-  const lastDay = new Date(end);
-  const padEnd = 6 - ((lastDay.getDay() + 6) % 7);
-  for (let i = 0; i < padEnd; i++) weeks.push(0);
+  // Pad to complete the last partial week
+  while (days.length % 7 !== 0) days.push(0);
 
   const grid = [];
-  for (let i = 0; i < weeks.length; i += 7) {
-    grid.push(weeks.slice(i, i + 7));
+  for (let i = 0; i < days.length; i += 7) {
+    grid.push(days.slice(i, i + 7));
   }
 
-  return { grid, max };
+  return { grid, max, months };
 }
 
 async function main() {
   const [gh, gitea] = await Promise.all([fetchGitHub(), fetchGitea()]);
 
-  const merged = { ...gh.byDate };
+  const merged = { ...gh };
   for (const [date, count] of Object.entries(gitea)) {
     merged[date] = (merged[date] || 0) + count;
   }
 
-  const { grid, max } = buildGrid(merged);
+  const { grid, max, months } = buildGrid(merged);
 
-  const out = JSON.stringify({ months: gh.months, grid, max });
+  const out = JSON.stringify({ months, grid, max });
   writeFileSync(join(__dirname, '..', 'data', 'contributions.json'), out);
   console.log('Wrote data/contributions.json');
 }
