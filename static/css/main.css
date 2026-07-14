@@ -115,6 +115,51 @@ h2 {
   font-size: var(--font-size-label);
 }
 
+.contribution-heatmap {
+  margin: var(--space-6) 0;
+}
+
+.contribution-heatmap__title {
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-subheading);
+  margin: 0 0 var(--space-3);
+}
+
+.contribution-heatmap__svg {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+}
+
+.heatmap-cell {
+  fill: var(--color-border);
+}
+
+.heatmap-cell--l1 { fill: #9be9a8; }
+.heatmap-cell--l2 { fill: #40c463; }
+.heatmap-cell--l3 { fill: #30a14e; }
+.heatmap-cell--l4 { fill: #216e39; }
+
+.heatmap-label {
+  fill: var(--color-text-2);
+  font-size: 10px;
+  font-family: var(--font-family);
+}
+
+.heatmap-label--day {
+  text-anchor: end;
+  font-size: 9px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .heatmap-cell { fill: #2d2d33; }
+  .heatmap-cell--l1 { fill: #0e4429; }
+  .heatmap-cell--l2 { fill: #006d32; }
+  .heatmap-cell--l3 { fill: #26a641; }
+  .heatmap-cell--l4 { fill: #39d353; }
+}
+
 .archive-year h2 {
   margin-top: var(--space-7);
 }
