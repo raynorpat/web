@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const GH_TOKEN = process.env.GH_TOKEN;
+const GITHUB_USER = process.env.GITHUB_USER || 'raynorpat';
 const GITEA_TOKEN = process.env.GITEA_TOKEN;
 const GITEA_URL = process.env.GITEA_URL;
 const GITEA_USER = process.env.GITEA_USER || 'raynorpat';
@@ -17,7 +18,8 @@ if (!GH_TOKEN || !GITEA_TOKEN || !GITEA_URL) {
 const now = new Date();
 const oneYearAgo = new Date(now);
 oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-oneYearAgo.setDate(oneYearAgo.getDate() - 1);
+// Keep the GraphQL window strictly within one year (API max).
+oneYearAgo.setUTCHours(0, 0, 0, 0);
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const toISO = (d) => d.toISOString().slice(0, 10);
@@ -27,9 +29,26 @@ const toLocalDate = (ts) => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 };
 
-const ghQuery = `{
-  "query": "query { viewer { contributionsCollection(from: \\"${toISO(oneYearAgo)}T00:00:00Z\\", to: \\"${toISO(now)}T23:59:59Z\\") { contributionCalendar { weeks { firstDay contributionDays { date contributionCount } } } } } }"
-}`;
+// Query a fixed user (not viewer) so the calendar matches the profile even if
+// GH_TOKEN belongs to a different identity. Keep the from/to window ≤ 1 year.
+const fromDate = toISO(oneYearAgo);
+const toDate = toISO(now);
+const ghQuery = JSON.stringify({
+  query: `query($login: String!, $from: DateTime!, $to: DateTime!) {
+    user(login: $login) {
+      contributionsCollection(from: $from, to: $to) {
+        contributionCalendar {
+          weeks { contributionDays { date contributionCount } }
+        }
+      }
+    }
+  }`,
+  variables: {
+    login: GITHUB_USER,
+    from: `${fromDate}T00:00:00Z`,
+    to: `${toDate}T23:59:59Z`,
+  },
+});
 
 async function fetchGitHub() {
   const res = await fetch('https://api.github.com/graphql', {
@@ -40,7 +59,9 @@ async function fetchGitHub() {
   if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
   const json = await res.json();
   if (json.errors) throw new Error(`GitHub API: ${json.errors[0].message}`);
-  const cal = json.data.viewer.contributionsCollection.contributionCalendar;
+  const user = json.data?.user;
+  if (!user) throw new Error(`GitHub API: user "${GITHUB_USER}" not found`);
+  const cal = user.contributionsCollection.contributionCalendar;
   const byDate = {};
   for (const week of cal.weeks) {
     for (const day of week.contributionDays) {
