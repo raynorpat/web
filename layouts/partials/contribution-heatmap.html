@@ -10,7 +10,11 @@
     {{ range $di, $count := $week }}
     {{ $y := add $labelH (mul $di $rowH) }}
     {{ $level := 0 }}
-    {{ if gt $data.max 0 }}{{ $level = div (mul $count 5) (add $data.max 1) }}{{ end }}
+    {{ if gt $count 0 }}
+    {{ $level = div (add (mul $count 4) (sub $data.max 1)) $data.max }}
+    {{ if lt $level 1 }}{{ $level = 1 }}{{ end }}
+    {{ if gt $level 4 }}{{ $level = 4 }}{{ end }}
+    {{ end }}
     <rect x="{{ $x }}" y="{{ $y }}" width="{{ $cellSize }}" height="{{ $cellSize }}" rx="2" class="heatmap-cell heatmap-cell--l{{ $level }}" />
     {{ end }}{{ end }}
     {{ range $data.months }}
