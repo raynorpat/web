@@ -4,21 +4,19 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const GH_TOKEN = process.env.GH_TOKEN;
 const GITHUB_USER = process.env.GITHUB_USER || 'raynorpat';
 const GITEA_TOKEN = process.env.GITEA_TOKEN;
 const GITEA_URL = process.env.GITEA_URL;
 const GITEA_USER = process.env.GITEA_USER || 'raynorpat';
 
-if (!GH_TOKEN || !GITEA_TOKEN || !GITEA_URL) {
-  console.error('Missing GH_TOKEN, GITEA_TOKEN, or GITEA_URL');
+if (!GITEA_TOKEN || !GITEA_URL) {
+  console.error('Missing GITEA_TOKEN or GITEA_URL');
   process.exit(1);
 }
 
 const now = new Date();
 const oneYearAgo = new Date(now);
 oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-// Keep the GraphQL window strictly within one year (API max).
 oneYearAgo.setUTCHours(0, 0, 0, 0);
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -29,44 +27,29 @@ const toLocalDate = (ts) => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 };
 
-// Query a fixed user (not viewer) so the calendar matches the profile even if
-// GH_TOKEN belongs to a different identity. Keep the from/to window ≤ 1 year.
-const fromDate = toISO(oneYearAgo);
-const toDate = toISO(now);
-const ghQuery = JSON.stringify({
-  query: `query($login: String!, $from: DateTime!, $to: DateTime!) {
-    user(login: $login) {
-      contributionsCollection(from: $from, to: $to) {
-        contributionCalendar {
-          weeks { contributionDays { date contributionCount } }
-        }
-      }
-    }
-  }`,
-  variables: {
-    login: GITHUB_USER,
-    from: `${fromDate}T00:00:00Z`,
-    to: `${toDate}T23:59:59Z`,
-  },
-});
-
+// Scrape the public profile calendar so opted-in private contributions match
+// github.com (GraphQL omits them unless the token has read:user as that user).
 async function fetchGitHub() {
-  const res = await fetch('https://api.github.com/graphql', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${GH_TOKEN}`, 'Content-Type': 'application/json' },
-    body: ghQuery,
+  const res = await fetch(`https://github.com/users/${GITHUB_USER}/contributions`, {
+    headers: {
+      Accept: 'text/html',
+      'User-Agent': 'raynorpat.com-contribution-heatmap',
+    },
   });
-  if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
-  const json = await res.json();
-  if (json.errors) throw new Error(`GitHub API: ${json.errors[0].message}`);
-  const user = json.data?.user;
-  if (!user) throw new Error(`GitHub API: user "${GITHUB_USER}" not found`);
-  const cal = user.contributionsCollection.contributionCalendar;
+  if (!res.ok) throw new Error(`GitHub contributions page: ${res.status}`);
+  const html = await res.text();
+  const pairs = [
+    ...html.matchAll(
+      /data-date="(\d{4}-\d{2}-\d{2})"[^>]*id="(contribution-day-component-[^"]+)"[\s\S]*?<\/td>\s*<tool-tip[^>]*for="\2"[^>]*>([^<]+)<\/tool-tip>/g
+    ),
+  ];
+  if (pairs.length === 0) {
+    throw new Error('GitHub contributions page: no calendar days found');
+  }
   const byDate = {};
-  for (const week of cal.weeks) {
-    for (const day of week.contributionDays) {
-      byDate[day.date] = (byDate[day.date] || 0) + day.contributionCount;
-    }
+  for (const [, date, , text] of pairs) {
+    const m = /^(\d+) contribution/.exec(text);
+    byDate[date] = m ? Number(m[1]) : 0;
   }
   return byDate;
 }
