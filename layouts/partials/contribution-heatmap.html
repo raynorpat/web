@@ -11,7 +11,7 @@
     {{ $y := add $labelH (mul $di $rowH) }}
     {{ $level := 0 }}
     {{ if gt $count 0 }}
-    {{ $level = div (add (mul $count 4) (sub $data.max 1)) $data.max }}
+    {{ $level = int (div (add (mul $count 4) (sub $data.max 1)) $data.max) }}
     {{ if lt $level 1 }}{{ $level = 1 }}{{ end }}
     {{ if gt $level 4 }}{{ $level = 4 }}{{ end }}
     {{ end }}
