@@ -28,11 +28,12 @@ const ghQuery = `{
 async function fetchGitHub() {
   const res = await fetch('https://api.github.com/graphql', {
     method: 'POST',
-    headers: { Authorization: `bearer ${GH_TOKEN}`, 'Content-Type': 'application/json' },
+    headers: { Authorization: `Bearer ${GH_TOKEN}`, 'Content-Type': 'application/json' },
     body: ghQuery,
   });
   if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
   const json = await res.json();
+  if (json.errors) throw new Error(`GitHub API: ${json.errors[0].message}`);
   const cal = json.data.viewer.contributionsCollection.contributionCalendar;
   const byDate = {};
   for (const week of cal.weeks) {
