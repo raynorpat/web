@@ -22,8 +22,13 @@ oneYearAgo.setDate(oneYearAgo.getDate() - 1);
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const toISO = (d) => d.toISOString().slice(0, 10);
 
+const toLocalDate = (ts) => {
+  const d = new Date(ts * 1000);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
 const ghQuery = `{
-  "query": "query { viewer { contributionsCollection(from: \\"${toISO(oneYearAgo)}T00:00:00Z\\", to: \\"${toISO(now)}T23:59:59Z\\") { contributionCalendar { weeks { firstDay contributionDays { date contributionCount } } } } } }"
+  "query": "query { viewer { contributionsCollection(from: \\"${toISO(oneYearAgo)}T00:00:00Z\\", to: \\"${toISO(now)}T23:59:59Z\\", includePrivate: true) { contributionCalendar { weeks { firstDay contributionDays { date contributionCount } } } } } }"
 }`;
 
 async function fetchGitHub() {
@@ -53,7 +58,7 @@ async function fetchGitea() {
   const data = await res.json();
   const byDate = {};
   for (const entry of data) {
-    const date = toISO(new Date(entry.timestamp * 1000));
+    const date = toLocalDate(entry.timestamp);
     byDate[date] = (byDate[date] || 0) + entry.contributions;
   }
   return byDate;
@@ -65,7 +70,6 @@ function buildGrid(merged) {
   const days = [];
   let max = 0;
 
-  // Start from the Monday of the week containing start
   const current = new Date(start);
   const dayOfWeek = (current.getDay() + 6) % 7;
   current.setDate(current.getDate() - dayOfWeek);
@@ -89,7 +93,6 @@ function buildGrid(merged) {
     current.setDate(current.getDate() + 1);
   }
 
-  // Pad to complete the last partial week
   while (days.length % 7 !== 0) days.push(0);
 
   const grid = [];
