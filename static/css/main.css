@@ -1,28 +1,7 @@
 @font-face {
   font-family: 'Public Sans';
   font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/public-sans-latin.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Public Sans';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/public-sans-latin.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Public Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/fonts/public-sans-latin.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Public Sans';
-  font-style: normal;
-  font-weight: 700;
+  font-weight: 400 700;
   font-display: swap;
   src: url('/fonts/public-sans-latin.woff2') format('woff2');
 }
@@ -115,7 +94,7 @@ h2 {
 }
 
 .post {
-  max-width: 50vw;
+  max-width: 720px;
   margin: 0 auto;
 }
 
