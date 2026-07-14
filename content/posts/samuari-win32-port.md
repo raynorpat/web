@@ -4,8 +4,6 @@ date: 2026-07-13
 description: "Time-Traveling C: Porting a C99 Linux Build Tool to Windows via MSVC 4.2"
 ---
 
-# Ninja-ing Like It’s 1996: Porting samurai to MSVC 4.2
-
 There is a strange, intoxicating joy in retro-computing. Sometimes it’s running Windows NT on an old ThinkPad; other times, it’s trying to compile a modern C99 build tool with a compiler that hasn't seen an update since Bill Clinton's first presidential term.
 
 Recently, I set my sights on [**samurai**](https://github.com/michaelforney/samurai), a beautifully minimal clone of the Ninja build system written in C99. It’s light, clean, and POSIX-focused. My goal? Port it to Windows using **Microsoft Visual C++ 4.2**, released back in 1996. I wanted the ability to use native ninja build files for a separate retro-development project I'm working on, and using a modern toolchain felt like cheating. 
