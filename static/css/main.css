@@ -85,6 +85,10 @@ h2 {
   font-size: var(--font-size-label);
 }
 
+.content:has(.post) ~ .site-footer {
+  max-width: 720px;
+}
+
 .site-footer p {
   margin: 0;
 }
