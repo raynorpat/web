@@ -358,3 +358,20 @@ h2 {
 .project-carousel__dot.is-active {
   background: var(--color-info);
 }
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-info);
+  color: #fff;
+  border-radius: var(--radius-control);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-label);
+  text-decoration: none;
+  z-index: 100;
+}
+.skip-link:focus {
+  top: var(--space-2);
+}
