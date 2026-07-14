@@ -21,6 +21,16 @@ jobs:
         with:
           hugo-version: '0.164.0'
           extended: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Fetch contributions
+        run: node scripts/fetch-contributions.js
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+          GITEA_URL: ${{ secrets.GITEA_URL }}
       - name: Build with Hugo
         run: hugo --minify
       - name: Build And Deploy
