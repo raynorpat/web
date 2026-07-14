@@ -1,6 +1,6 @@
 {{ define "main" }}
 <section class="hero">
-  <img class="hero__photo" src="https://avatars3.githubusercontent.com/u/17457?s=460&v=4" alt="Photo of Patrick Raynor">
+  <img class="hero__photo" src="/images/avatar.jpg" alt="Photo of Patrick Raynor">
   <div class="hero__body">
     <p class="hero__tagline">raynorpat.com is dedicated to the archival and constant uploading of crazy projects and of course, the ramblings, howto's, reports, and other writings of Pat 'raynorpat' Raynor.</p>
     {{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
