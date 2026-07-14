@@ -112,10 +112,14 @@ async function main() {
   }
 
   const { grid, max, months } = buildGrid(merged);
+  const sumByDate = (byDate) => Object.values(byDate).reduce((a, b) => a + b, 0);
+  const nonZeroDays = Object.values(merged).filter((c) => c > 0).length;
 
   const out = JSON.stringify({ months, grid, max });
   writeFileSync(join(__dirname, '..', 'data', 'contributions.json'), out);
-  console.log('Wrote data/contributions.json');
+  console.log(
+    `Wrote data/contributions.json (nonZeroDays=${nonZeroDays}, gh=${sumByDate(gh)}, gitea=${sumByDate(gitea)}, max=${max}, weeks=${grid.length})`
+  );
 }
 
 main().catch((err) => {
