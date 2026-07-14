@@ -2,7 +2,7 @@
 {{ $data := . }}
 {{ if $data.grid }}
 <section class="contribution-heatmap">
-  <h2 class="contribution-heatmap__title">Coding activity</h2>
+  <p class="contribution-heatmap__title">Check out my code contributions for the year:</p>
   <svg class="contribution-heatmap__svg" viewBox="0 0 760 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Contribution graph for the last year">
     {{ $cellSize := 12 }}{{ $gap := 2 }}{{ $colW := 14 }}{{ $rowH := 14 }}{{ $labelH := 16 }}
     {{ range $wi, $week := $data.grid }}
