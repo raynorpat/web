@@ -28,7 +28,7 @@ const toLocalDate = (ts) => {
 };
 
 const ghQuery = `{
-  "query": "query { viewer { contributionsCollection(from: \\"${toISO(oneYearAgo)}T00:00:00Z\\", to: \\"${toISO(now)}T23:59:59Z\\", includePrivate: true) { contributionCalendar { weeks { firstDay contributionDays { date contributionCount } } } } } }"
+  "query": "query { viewer { contributionsCollection(from: \\"${toISO(oneYearAgo)}T00:00:00Z\\", to: \\"${toISO(now)}T23:59:59Z\\") { contributionCalendar { weeks { firstDay contributionDays { date contributionCount } } } } } }"
 }`;
 
 async function fetchGitHub() {
