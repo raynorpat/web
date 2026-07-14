@@ -1,0 +1,23 @@
+{{ with .Site.Data.contributions }}
+{{ if .grid }}
+<section class="contribution-heatmap">
+  <h2 class="contribution-heatmap__title">Coding activity</h2>
+  <svg class="contribution-heatmap__svg" viewBox="0 0 760 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Contribution graph for the last year">
+    {{ $cellSize := 12 }}{{ $gap := 2 }}{{ $colW := 14 }}{{ $rowH := 14 }}{{ $labelH := 16 }}
+    {{ range $wi, $week := .grid }}
+    {{ $x := mul $wi $colW }}
+    {{ range $di, $count := $week }}
+    {{ $y := add $labelH (mul $di $rowH) }}
+    {{ $level := 0 }}
+    {{ if gt $.max 0 }}{{ $level = div (mul $count 5) (add $.max 1) }}{{ end }}
+    <rect x="{{ $x }}" y="{{ $y }}" width="{{ $cellSize }}" height="{{ $cellSize }}" rx="2" class="heatmap-cell heatmap-cell--l{{ $level }}" />
+    {{ end }}{{ end }}
+    {{ range .months }}
+    <text x="{{ mul .week $colW }}" y="11" class="heatmap-label">{{ .name }}</text>
+    {{ end }}
+    <text x="-2" y="{{ add $labelH 10 }}" class="heatmap-label heatmap-label--day">Mon</text>
+    <text x="-2" y="{{ add $labelH (mul 3 $rowH) 2 }}" class="heatmap-label heatmap-label--day">Wed</text>
+    <text x="-2" y="{{ add $labelH (mul 5 $rowH) 4 }}" class="heatmap-label heatmap-label--day">Fri</text>
+  </svg>
+</section>
+{{ end }}{{ end }}
