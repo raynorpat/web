@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="card">
   <div class="card__banner"></div>
-  <img class="card__avatar" src="https://avatars3.githubusercontent.com/u/17457?s=460&v=4" alt="Photo of Patrick Raynor">
+  <img class="card__avatar" src="/images/avatar.jpg" alt="Photo of Patrick Raynor">
   <div class="card__body">
     <h1 class="card__name">{{ .Site.Params.author }}</h1>
     {{ with .Params.role }}<p class="card__role">{{ . }}</p>{{ end }}

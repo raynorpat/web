@@ -6,6 +6,7 @@ disableKinds = ["taxonomy", "term"]
 [params]
   author = "Patrick Raynor"
   description = "Patrick Raynor's personal site and blog"
+  images = ["/images/avatar.jpg"]
 
 [outputs]
   home = ["HTML", "RSS"]
