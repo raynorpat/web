@@ -1,4 +1,5 @@
 .claude/
+.worktrees/
 public/
 .hugo_build.lock
 data/contributions.json
