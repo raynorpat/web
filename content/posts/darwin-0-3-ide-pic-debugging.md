@@ -1,7 +1,6 @@
 ---
 title: "Debugging Darwin 0.3: When an IDE Driver Problem Was Really an Interrupt Controller Bug"
 date: 2026-07-27T09:00:00-04:00
-draft: true
 description: "A deep dive into debugging Apple Darwin 0.3, its legacy EIDE driver, QEMU interrupt failures, and a spurious IRQ 15 bug in the cascaded 8259 PIC handling."
 tags:
   - Darwin
