@@ -6,7 +6,7 @@ tags: ["rhapsodios", "rhapsody", "openstep", "darwin", "reverse-engineering", "v
 summary: "OPENSTEP 4.2's last user patch taught the i386 booter, kernel and a display driver to speak VESA. Rhapsody never got it. This is how I reconstructed all three layers from Apple's binaries and got a frame-buffer console booting on RhapsodiOS."
 ---
 
-{{< figure src="images/posts/darwin-0-3-vbe-vesa-console-boot/vbe-console.png" alt="The RhapsodiOS kernel console drawn in a 480 by 360 window on a 640 by 480 VESA frame buffer, stopped at the network prompt" caption="The i386 boot console on a VESA frame buffer: mode 257, 640×480 at 8 bits, under QEMU. Every layer that put it there was rebuilt from OPENSTEP 4.2 binaries." >}}
+{{< figure src="/images/posts/darwin-0-3-vbe-vesa-console-boot/vbe-console.png" alt="The RhapsodiOS kernel console drawn in a 480 by 360 window on a 640 by 480 VESA frame buffer, stopped at the network prompt" caption="The i386 boot console on a VESA frame buffer: mode 257, 640×480 at 8 bits, under QEMU. Every layer that put it there was rebuilt from OPENSTEP 4.2 binaries." >}}
 
 [RhapsodiOS](https://github.com/RhapsodiOS/RhapsodiOS) is an open-source
 reimplementation of Apple's Rhapsody, the system that became Mac OS X Server
