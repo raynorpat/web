@@ -108,6 +108,11 @@ h2 {
   font-size: var(--font-size-label);
 }
 
+.post__body img {
+  max-width: 100%;
+  height: auto;
+}
+
 .post__pager {
   display: flex;
   justify-content: space-between;
