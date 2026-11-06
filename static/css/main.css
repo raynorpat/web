@@ -115,6 +115,10 @@ h2 {
   margin-inline: auto;
 }
 
+.post__body p:has(> img) + p {
+  text-align: center;
+}
+
 .post__pager {
   display: flex;
   justify-content: space-between;
